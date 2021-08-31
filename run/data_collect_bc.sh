@@ -2,12 +2,12 @@
 
 # * To collect from Roach for the Leaderboard benchmark
 data_collect () {
-  python -u data_collect.py resume=true log_video=false save_to_wandb=true \
+  python -u data_collect.py resume=true log_video=false save_to_wandb=false \
   wb_project=il_leaderboard_roach \
   wb_group=bc_data \
   test_suites=lb_data \
-  n_episodes=160 \
-  dataset_root=/home/ubuntu/dataset/bc \
+  n_episodes=5 \
+  dataset_root=/data/cornucopia/ah2029/datasets/roach_carla \
   actors.hero.driver=ppo \
   agent.ppo.wb_run_path=iccv21-roach/trained-models/1929isj0 \
   agent.ppo.wb_ckpt_step=null \
@@ -42,7 +42,7 @@ data_collect () {
 # NO NEED TO MODIFY THE FOLLOWING
 # actiate conda env
 source ~/miniconda3/etc/profile.d/conda.sh
-conda activate carla
+conda activate roach
 
 # remove checkpoint files
 rm outputs/checkpoint.txt
