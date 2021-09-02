@@ -242,7 +242,7 @@ def main(cfg: DictConfig):
 
     # init wandb
     wandb.init(project=cfg.wb_project, name=wb_run_name, group=cfg.wb_group, notes=cfg.wb_notes, tags=cfg.wb_tags,
-               id=wb_run_id, resume="allow")
+               id=wb_run_id, resume="allow") #, dir='/scratch3/experiments/debug')
     wandb.config.update(OmegaConf.to_container(cfg))
     wandb.save('./config_agent.yaml')
     with open(wb_checkpoint_path, 'w') as f:
@@ -373,4 +373,7 @@ def main(cfg: DictConfig):
 
 if __name__ == '__main__':
     main()
+    os.remove('./outputs/checkpoint.txt')
+    os.remove('./outputs/wb_run_id.txt')
+    os.remove('./outputs/ep_stat_buffer_0.json')
     log.info("data_collect.py DONE!")

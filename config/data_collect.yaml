@@ -5,7 +5,7 @@ defaults:
   - agent/cilrs/obs_configs: central_rgb_wide
   - agent: ppo
   - agent/ppo/obs_configs: birdview
-  - test_suites: eu_data
+  - test_suites: lb_data
 actors:
   hero:
     driver: roaming
@@ -32,15 +32,15 @@ ev_id: hero
 inject_noise: false
 n_episodes: 2
 resume: false
-carla_sh_path: null
+carla_sh_path: /home/mifs/ah2029/softwares/CARLA_0.9.10.1/CarlaUE4.sh
 log_level: INFO
 host: localhost
 port: 2000
 seed: 2021
 no_rendering: false
 kill_running: true
-wb_project: data_collect
+wb_project: il_leaderboard_roach
 wb_notes: null
-wb_group: null
+wb_group: bc_data
 wb_tags: null
 log_video: true

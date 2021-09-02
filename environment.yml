@@ -188,7 +188,6 @@ dependencies:
   - torchvision=0.5.0=py37_cu101
   - tornado=6.0.4=py37h7b6447c_1
   - tqdm=4.48.2=pyh9f0ad1d_0
-  - traitlets=4.3.3=py37_0
   - urllib3=1.25.10=py_0
   - watchdog=0.10.3=py37hc8dfbb8_1
   - wcwidth=0.2.5=py_0
@@ -236,3 +235,5 @@ dependencies:
     - tifffile==2020.10.1
     - typing-extensions==3.7.4.3
     - wandb==0.10.12
+    - jupyter==1.0.0
+    - traitlets==5.1.0
