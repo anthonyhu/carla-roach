@@ -209,7 +209,7 @@ class CoILICRA(nn.Module):
 
         return outputs
 
-    def forward_branch(self, command, im, state):
+    def forward_branch(self, command, im, state, **kwargs):
         with th.no_grad():
             im_tensor = im.unsqueeze(0).to(self.device)
             state_tensor = state.unsqueeze(0).to(self.device)

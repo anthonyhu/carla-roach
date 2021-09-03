@@ -1,23 +1,20 @@
 defaults:
-  - agent: roaming
-  - test_suites: nocrash_dense
+  - test_suites: lb_test
 actors:
   hero:
-    agent: roaming
     reward:
       entry_point: reward.valeo_action:ValeoAction
     terminal:
       entry_point: terminal.leaderboard:Leaderboard
-carla_sh_path: null
+carla_sh_path: /home/mifs/ah2029/softwares/CARLA_0.9.10.1/CarlaUE4.sh
 log_level: INFO
 host: localhost
 port: 2000
 seed: 2021
-no_rendering: false
+no_rendering: true
 kill_running: true
 resume: true
-wb_project: debug
-wb_notes: null
+wb_project: iccv21-roach-benchmark
 wb_group: null
 wb_tags: null
 log_video: true

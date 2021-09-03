@@ -1,0 +1,14 @@
+defaults:
+  - benchmark
+  - agent: ppo
+  - _self_
+
+wb_notes: 'RL agent'
+
+actors:
+  hero:
+    agent: ppo
+
+agent:
+  ppo:
+    wb_run_path: iccv21-roach/trained-models/1929isj0

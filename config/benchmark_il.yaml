@@ -1,0 +1,16 @@
+defaults:
+  - benchmark
+  - agent: cilrs
+  - _self_
+
+wb_notes: 'IL agent'
+port: 2005
+
+actors:
+  hero:
+    agent: cilrs
+
+agent:
+  cilrs:
+    wb_run_path: iccv21-roach/trained-models/31u9tki7
+

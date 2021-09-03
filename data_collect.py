@@ -93,7 +93,7 @@ def collect_single(run_name, env, data_writer, driver_dict, driver_log_dir, coac
                 control_diff[actor_id] = np.abs(np.array([c_coach.throttle-c_driver.throttle,
                                                           c_coach.steer-c_driver.steer,
                                                           c_coach.brake-c_driver.brake], dtype=np.float32))
-            im_rgb = data_writer.write(timestamp=timestamp, obs=obs,
+            im_rgb = data_writer.wrfite(timestamp=timestamp, obs=obs,
                                        supervision=coach_supervision, reward=reward, control_diff=control_diff)
         obs = new_obs
 

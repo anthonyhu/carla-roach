@@ -7,6 +7,7 @@ from omegaconf import OmegaConf
 import logging
 log = logging.getLogger(__name__)
 
+GPU_NUMBER = 1
 
 def kill_carla():
     kill_process = subprocess.Popen('killall -9 -r CarlaUE4-Linux', shell=True)
@@ -24,7 +25,7 @@ class CarlaServerManager():
 
         if configs is None:
             cfg = {
-                'gpu': 0,
+                'gpu': GPU_NUMBER,
                 'port': port,
             }
             self.env_configs.append(cfg)
