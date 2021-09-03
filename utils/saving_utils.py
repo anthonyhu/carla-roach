@@ -49,7 +49,9 @@ class DataWriter():
                 'left_rgb': None,
                 'right_rgb': None,
                 'gnss': None,
-                'speed': None
+                'speed': None,
+                'route_plan': None,
+                'birdview': None,
             },
             'supervision': None,
             'control_diff': None,
@@ -62,6 +64,10 @@ class DataWriter():
         # gnss speed
         data_dict['obs']['gnss'] = obs['gnss']
         data_dict['obs']['speed'] = obs['speed']
+
+        # Route plan and birdview
+        data_dict['obs']['route_plan'] = obs['route_plan']
+        data_dict['obs']['birdview'] = obs['birdview']
 
         # left_rgb & right_rgb
         if 'left_rgb' in obs and 'right_rgb' in obs:

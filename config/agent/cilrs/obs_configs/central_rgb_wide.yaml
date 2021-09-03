@@ -1,4 +1,3 @@
-# @package _group_
 speed:
   module: actor_state.speed
 gnss:

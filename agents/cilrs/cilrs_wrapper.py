@@ -84,7 +84,8 @@ class CilrsWrapper():
 
         policy_input = {
             'im': th.stack(im_list, dim=1),
-            'state': th.tensor(state_list, dtype=th.float32)
+            'state': th.tensor(state_list, dtype=th.float32),
+            'birdview': th.tensor(obs['birdview']['masks'], dtype=th.long),
         }
         return policy_input, th.tensor([command], dtype=th.int8)
 

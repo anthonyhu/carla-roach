@@ -1,0 +1,34 @@
+defaults:
+  - train_il
+  - _self_
+
+cache_dir: /scratch3/experiments/debug
+reset_step: true
+wb_project: il_leaderboard_roach
+wb_group: train
+wb_name: debug
+
+dagger_datasets: ['/scratch3/datasets/roach/debug/']
+
+agent:
+  cilrs:
+    wb_run_path: null
+    wb_ckpt_step: null
+    env_wrapper:
+      kwargs:
+        input_states: [speed, vec, cmd]
+        action_distribution: beta_shared
+        value_as_supervision: true
+        dim_features_supervision: 256
+    training:
+      kwargs:
+        batch_size: 64
+        branch_weights: [1.0]
+        action_kl: true
+        value_weight: 0.001
+        features_weight: 0.05
+    policy:
+      kwargs:
+        number_of_branches: 1
+    rl_run_path: iccv21-roach/trained-models/1929isj0
+    rl_ckpt_step: 11833344

@@ -1,0 +1,26 @@
+defaults:
+  - data_collect
+  - _self_
+
+dataset_root: /scratch3/datasets/roach/debug
+
+n_episodes: 5
+
+resume: true
+log_video: false
+save_to_wandb: false
+inject_noise: true
+
+actors:
+  hero:
+    driver: ppo
+    terminal:
+      kwargs:
+        max_time: 100
+        no_collision: true
+        no_run_rl: false
+        no_run_stop: false
+
+  ppo:
+    wb_run_path: iccv21-roach/trained-models/1929isj0
+    wb_ckpt_step: null

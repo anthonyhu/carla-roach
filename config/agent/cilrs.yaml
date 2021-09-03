@@ -1,4 +1,3 @@
-# @package _group_
 cilrs:
   entry_point: agents.cilrs.cilrs_agent:CilrsAgent
   ckpt: null

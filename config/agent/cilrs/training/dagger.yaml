@@ -1,4 +1,3 @@
-# @package _group_
 entry_point: agents.cilrs.models.trainer:Trainer
 kwargs:
   batch_size: 64

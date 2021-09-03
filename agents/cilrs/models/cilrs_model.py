@@ -174,7 +174,7 @@ class CoILICRA(nn.Module):
                 nn.init.xavier_uniform_(m.weight)
                 nn.init.constant_(m.bias, 0.1)
 
-    def forward(self, im, state):
+    def forward(self, im, state, **kwargs):
         '''
         im: (b, c, t, h, w) np.uint8
         state: (n,)

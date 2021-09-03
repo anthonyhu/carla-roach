@@ -19,9 +19,9 @@ class CilrsDataset(Dataset):
         self._im_stack_idx = env_wrapper.im_stack_idx
 
         if env_wrapper.view_augmentation:
-            self._obs_keys_to_load = ['speed', 'gnss', 'central_rgb', 'left_rgb', 'right_rgb']
+            self._obs_keys_to_load = ['speed', 'gnss', 'central_rgb', 'route_plan', 'birdview', 'left_rgb', 'right_rgb']
         else:
-            self._obs_keys_to_load = ['speed', 'gnss', 'central_rgb']
+            self._obs_keys_to_load = ['speed', 'gnss', 'central_rgb', 'route_plan', 'birdview']
 
         self._obs_list = []
         self._supervision_list = []

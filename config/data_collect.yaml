@@ -1,9 +1,10 @@
 defaults:
-  - agent: roaming
+  - agent:
+    - roaming
+    - cilrs
+    - ppo
   - agent/roaming/obs_configs: birdview
-  - agent: cilrs
   - agent/cilrs/obs_configs: central_rgb_wide
-  - agent: ppo
   - agent/ppo/obs_configs: birdview
   - test_suites: lb_data
 actors:

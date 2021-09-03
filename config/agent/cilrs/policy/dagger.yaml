@@ -1,4 +1,3 @@
-# @package _group_
 entry_point: agents.cilrs.models.cilrs_model:CoILICRA
 kwargs:
   freeze_value_head: false
