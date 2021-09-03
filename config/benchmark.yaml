@@ -12,7 +12,7 @@ host: localhost
 port: 2000
 seed: 2021
 no_rendering: true
-kill_running: true
+kill_running: false
 resume: true
 wb_project: iccv21-roach-benchmark
 wb_group: null
