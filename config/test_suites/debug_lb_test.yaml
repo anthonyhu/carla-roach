@@ -4,4 +4,3 @@
     carla_map: Town01
     routes_group: null
     weather_group: train_eval
-    gpu: [1]
