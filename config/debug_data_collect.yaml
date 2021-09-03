@@ -4,7 +4,7 @@ defaults:
 
 dataset_root: /scratch3/datasets/roach/debug
 
-n_episodes: 5
+n_episodes: 2
 
 resume: true
 log_video: false
@@ -16,11 +16,12 @@ actors:
     driver: ppo
     terminal:
       kwargs:
-        max_time: 100
+        max_time: 300
         no_collision: true
         no_run_rl: false
         no_run_stop: false
 
+agent:
   ppo:
     wb_run_path: iccv21-roach/trained-models/1929isj0
     wb_ckpt_step: null

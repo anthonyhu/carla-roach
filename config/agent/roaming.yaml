@@ -1,4 +1,6 @@
-# @package _group_
+defaults:
+  - roaming/obs_configs: birdview
+
 roaming:
   entry_point: agents.expert.lbc_roaming_agent:LbcRoamingAgent
   hack_throttle: true

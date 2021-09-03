@@ -1,4 +1,8 @@
-# @package _group_
+defaults:
+  - ppo/obs_configs: birdview
+  - ppo/policy: xtma_beta
+  - ppo/training: ppo
+
 ppo:
   entry_point: agents.rl_birdview.rl_birdview_agent:RlBirdviewAgent
   wb_run_path: null

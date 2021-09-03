@@ -1,3 +1,8 @@
+defaults:
+  - cilrs/obs_configs: central_rgb_wide
+  - cilrs/policy: dagger
+  - cilrs/training: dagger
+
 cilrs:
   entry_point: agents.cilrs.cilrs_agent:CilrsAgent
   ckpt: null

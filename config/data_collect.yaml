@@ -3,9 +3,6 @@ defaults:
     - roaming
     - cilrs
     - ppo
-  - agent/roaming/obs_configs: birdview
-  - agent/cilrs/obs_configs: central_rgb_wide
-  - agent/ppo/obs_configs: birdview
   - test_suites: lb_data
 actors:
   hero:
