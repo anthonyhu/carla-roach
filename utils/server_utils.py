@@ -7,13 +7,12 @@ from omegaconf import OmegaConf
 import logging
 log = logging.getLogger(__name__)
 
-GPU_NUMBER = 0
+GPU_NUMBER = 7
 
 def kill_carla():
     kill_process = subprocess.Popen('killall -9 -r CarlaUE4-Linux', shell=True)
     kill_process.wait()
     time.sleep(1)
-    log.info("Kill Carla Servers!")
 
 
 class CarlaServerManager():
@@ -53,4 +52,4 @@ class CarlaServerManager():
     def stop(self):
         kill_carla()
         time.sleep(self._t_sleep)
-        log.info(f"Kill Carla Servers!")
+        log.info(f"Killed Carla Servers!")

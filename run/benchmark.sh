@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # * To benchmark the Autopilot.
-agent="roaming"
-benchmark () {
-  python -u benchmark.py resume=true log_video=true \
-  wb_project=iccv21-roach-benchmark \
-  agent=$agent actors.hero.agent=$agent \
-  +agent/roaming/obs_configs=birdview \
-  'wb_group="Autopilot"' \
-  'wb_notes="Benchmark Autopilot on NoCrash-dense."' \
-  test_suites=nocrash_dense \
-  seed=2021 \
-  +wb_sub_group=nocrash_dense-2021 \
-  no_rendering=true \
-  carla_sh_path=${CARLA_ROOT}/CarlaUE4.sh
-}
+#agent="roaming"
+#benchmark () {
+#  python -u benchmark.py resume=true log_video=true \
+#  wb_project=iccv21-roach-benchmark \
+#  agent=$agent actors.hero.agent=$agent \
+#  +agent/roaming/obs_configs=birdview \
+#  'wb_group="Autopilot"' \
+#  'wb_notes="Benchmark Autopilot on NoCrash-dense."' \
+#  test_suites=nocrash_dense \
+#  seed=2021 \
+#  +wb_sub_group=nocrash_dense-2021 \
+#  no_rendering=true \
+#  carla_sh_path=${CARLA_ROOT}/CarlaUE4.sh
+#}
 
 # * To benchmark rl experts.
 # agent="ppo"
@@ -47,6 +47,11 @@ benchmark () {
 #   no_rendering=false \
 #   carla_sh_path=${CARLA_ROOT}/CarlaUE4.sh
 # }
+
+
+benchmark () {
+  python -u benchmark.py --config-name benchmark_rl
+}
 
 
 # NO NEED TO MODIFY THE FOLLOWING

@@ -1,24 +1,24 @@
 #!/bin/bash
 
 # * To collect from Roach for the Leaderboard benchmark
-data_collect () {
-  python -u data_collect.py resume=true log_video=false save_to_wandb=false \
-  wb_project=il_leaderboard_roach \
-  wb_group=bc_data \
-  test_suites=lb_data \
-  n_episodes=5 \
-  dataset_root=/data/cornucopia/ah2029/datasets/roach_carla \
-  actors.hero.driver=ppo \
-  agent.ppo.wb_run_path=iccv21-roach/trained-models/1929isj0 \
-  agent.ppo.wb_ckpt_step=null \
-  agent/cilrs/obs_configs=central_rgb_wide \
-  inject_noise=true \
-  actors.hero.terminal.kwargs.max_time=300 \
-  actors.hero.terminal.kwargs.no_collision=true \
-  actors.hero.terminal.kwargs.no_run_rl=false \
-  actors.hero.terminal.kwargs.no_run_stop=false \
-  carla_sh_path=${CARLA_ROOT}/CarlaUE4.sh
-}
+#data_collect () {
+#  python -u data_collect.py resume=true log_video=false save_to_wandb=false \
+#  wb_project=il_leaderboard_roach \
+#  wb_group=bc_data \
+#  test_suites=lb_data \
+#  n_episodes=5 \
+#  dataset_root=/data/cornucopia/ah2029/datasets/roach_carla \
+#  actors.hero.driver=ppo \
+#  agent.ppo.wb_run_path=iccv21-roach/trained-models/1929isj0 \
+#  agent.ppo.wb_ckpt_step=null \
+#  agent/cilrs/obs_configs=central_rgb_wide \
+#  inject_noise=true \
+#  actors.hero.terminal.kwargs.max_time=300 \
+#  actors.hero.terminal.kwargs.no_collision=true \
+#  actors.hero.terminal.kwargs.no_run_rl=false \
+#  actors.hero.terminal.kwargs.no_run_stop=false \
+#  carla_sh_path=${CARLA_ROOT}/CarlaUE4.sh
+#}
 
 # * To collect from Autopilot for the NoCrash benchmark
 # data_collect () {
@@ -37,6 +37,10 @@ data_collect () {
 #   actors.hero.terminal.kwargs.no_run_stop=false \
 #   carla_sh_path=${CARLA_ROOT}/CarlaUE4.sh
 # }
+
+data_collect () {
+  python -u data_collect.py --config-name data_collect
+}
 
 
 # NO NEED TO MODIFY THE FOLLOWING

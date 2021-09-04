@@ -373,7 +373,4 @@ def main(cfg: DictConfig):
 
 if __name__ == '__main__':
     main()
-    os.remove('./outputs/checkpoint.txt')
-    os.remove('./outputs/wb_run_id.txt')
-    os.remove('./outputs/ep_stat_buffer_0.json')
     log.info("data_collect.py DONE!")
