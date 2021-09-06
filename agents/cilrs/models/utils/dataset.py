@@ -23,8 +23,9 @@ class CilrsDataset(Dataset):
         else:
             self._obs_keys_to_load = ['speed', 'gnss', 'central_rgb', 'route_plan', 'birdview']
 
-        self._obs_list = []
-        self._supervision_list = []
+        self._obs_list = {}
+        self._supervision_list = {}
+        self._index_offset = 0
         log.info(f'Loading Expert.')
         self.expert_frames = self._load_h5(list_expert_h5)
         log.info(f'Loading Dagger.')
@@ -55,9 +56,12 @@ class CilrsDataset(Dataset):
 
                         supervision_dict = self.read_group_to_dict(group_step['supervision'],
                                                                    [h5_path, step_str, 'supervision'])
-                        self._obs_list.append(obs_dict)
-                        self._supervision_list.append(self._env_wrapper.process_supervision(supervision_dict))
+                        self._obs_list[current_step + self._index_offset] = obs_dict
+
+                        self._supervision_list[current_step + self._index_offset] = \
+                            self._env_wrapper.process_supervision(supervision_dict)
                         n_frames += 1
+                self._index_offset += len(hf.keys())
         return n_frames
 
     @staticmethod
@@ -110,6 +114,9 @@ class CilrsDataset(Dataset):
 
         self._batch_read_number += 1
         return command, policy_input, supervision
+
+class TemporalCilrsDataset(CilrsDataset):
+
 
 
 def get_dataloader(dataset_dir, env_wrapper, im_augmentation, batch_size=32, num_workers=8):

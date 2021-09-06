@@ -14,4 +14,4 @@ actors:
   hero:
     terminal:
       kwargs:
-        max_time: 300
+        max_time: 500

@@ -1,5 +1,5 @@
 defaults:
-  - test_suites: lb_test
+  - test_suites: nocrash_dense # lb_test
 actors:
   hero:
     reward:
