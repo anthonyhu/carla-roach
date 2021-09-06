@@ -50,7 +50,7 @@
 
 
 benchmark () {
-  python -u benchmark.py --config-name benchmark_rl
+  python -u benchmark.py --config-name benchmark_il
 }
 
 
