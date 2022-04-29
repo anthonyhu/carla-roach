@@ -3,10 +3,12 @@ import json
 from pathlib import Path
 import wandb
 import hydra
+import shutil
 from omegaconf import DictConfig, OmegaConf
 import logging
 import os.path
 import sys
+import socket
 
 from gym.wrappers.monitoring.video_recorder import ImageEncoder
 from stable_baselines3.common.vec_env.base_vec_env import tile_images
@@ -18,6 +20,10 @@ from agents.rl_birdview.utils.wandb_callback import WandbCallback
 log = logging.getLogger(__name__)
 
 
+LIVE_RENDER = False
+VIS_PATH = '/home/anthony/experiments/vis'
+
+
 def run_single(run_name, env, agents_dict, agents_log_dir, log_video, max_step=None):
     list_render = []
     ep_stat_dict = {}
@@ -26,6 +32,9 @@ def run_single(run_name, env, agents_dict, agents_log_dir, log_video, max_step=N
         log_dir = agents_log_dir / actor_id
         log_dir.mkdir(parents=True, exist_ok=True)
         agent.reset(log_dir / f'{run_name}.log')
+
+    if LIVE_RENDER and socket.gethostname() in ['direwolf', 'auris'] and os.path.isdir(VIS_PATH):
+        shutil.rmtree(VIS_PATH)
 
     log.info(f'Start Benchmarking {run_name}.')
     obs = env.reset()
@@ -50,6 +59,11 @@ def run_single(run_name, env, agents_dict, agents_log_dir, log_video, max_step=N
             del list_render[0]
         if log_video:
             list_render.append(tile_images(render_imgs))
+            if LIVE_RENDER and socket.gethostname() in ['direwolf', 'auris']:
+                from PIL import Image
+                os.makedirs(VIS_PATH, exist_ok=True)
+                img_pil = Image.fromarray(list_render[-1])
+                img_pil.save(os.path.join(VIS_PATH, f'{timestamp["step"]:06d}.png'))
 
         timestamp = env.timestamp
         if max_step and timestamp['step'] > max_step:
