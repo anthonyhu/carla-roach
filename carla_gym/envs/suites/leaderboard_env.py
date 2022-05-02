@@ -34,7 +34,7 @@ class LeaderboardEnv(CarlaMultiAgentEnv):
 
         # weather
         if weather_group == 'new':
-            weathers = ['SoftRainSunset', 'WetSunset']
+            weathers = ['SoftRainSunset', 'WetSunset', 'CloudyNoon', 'MidRainSunset']
         elif weather_group == 'train':
             weathers = ['ClearNoon', 'WetNoon', 'HardRainNoon', 'ClearSunset']
         elif weather_group == 'simple':
