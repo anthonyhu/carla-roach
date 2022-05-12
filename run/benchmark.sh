@@ -53,7 +53,7 @@ if [[ $# -ne 3 ]] ; then
     exit 1
 fi
 
-# either lb_test_nn for test for lb_test_tt for train
+# either training or testing
 BENCHMARK_TYPE=$1
 TEST_SUITE=$2
 PORT=$3
