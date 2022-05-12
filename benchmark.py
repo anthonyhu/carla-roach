@@ -16,6 +16,7 @@ from stable_baselines3.common.vec_env.base_vec_env import tile_images
 from carla_gym.utils import config_utils
 from utils import server_utils
 from agents.rl_birdview.utils.wandb_callback import WandbCallback
+from constants import CARLA_FPS
 
 log = logging.getLogger(__name__)
 
@@ -76,7 +77,7 @@ def run_single(run_name, env, agents_dict, agents_log_dir, log_video, max_step=N
 def main(cfg: DictConfig):
     log.setLevel(getattr(logging, cfg.log_level.upper()))
     if cfg.kill_running:
-        server_utils.kill_carla()
+        server_utils.kill_carla(cfg.port)
 
     # start carla servers
     server_manager = server_utils.CarlaServerManager(cfg.carla_sh_path, port=cfg.port)
@@ -104,7 +105,7 @@ def main(cfg: DictConfig):
     config_utils.check_h5_maps(cfg.test_suites, obs_configs, cfg.carla_sh_path)
 
     # resume env_idx from checkpoint.txt
-    last_checkpoint_path = f'{hydra.utils.get_original_cwd()}/outputs/checkpoint.txt'
+    last_checkpoint_path = f'{hydra.utils.get_original_cwd()}/outputs/port_{cfg.port}_checkpoint.txt'
     if cfg.resume and os.path.isfile(last_checkpoint_path):
         with open(last_checkpoint_path, 'r') as f:
             env_idx = int(f.read())
@@ -113,11 +114,12 @@ def main(cfg: DictConfig):
         env_idx = 0
 
     if env_idx >= len(cfg.test_suites):
+        server_manager.stop()
         log.info(f'Finished! env_idx: {env_idx}')
         return
 
     # resume task_idx from ep_stat_buffer_{env_idx}.json
-    ep_state_buffer_json = f'{hydra.utils.get_original_cwd()}/outputs/ep_stat_buffer_{env_idx}.json'
+    ep_state_buffer_json = f'{hydra.utils.get_original_cwd()}/outputs/port_{cfg.port}_ep_stat_buffer_{env_idx}.json'
     if cfg.resume and os.path.isfile(ep_state_buffer_json):
         ep_stat_buffer = json.load(open(ep_state_buffer_json, 'r'))
         ckpt_task_idx = len(ep_stat_buffer['hero'])
@@ -166,7 +168,7 @@ def main(cfg: DictConfig):
         # log video
         if cfg.log_video:
             video_path = (video_dir / f'{run_name}.mp4').as_posix()
-            encoder = ImageEncoder(video_path, list_render[0].shape, 30, 30)
+            encoder = ImageEncoder(video_path, list_render[0].shape, 2*CARLA_FPS, 2*CARLA_FPS)
             for im in list_render:
                 encoder.capture_frame(im)
             encoder.close()
@@ -218,6 +220,7 @@ def main(cfg: DictConfig):
         data += [f'{avg_ep_stat[k]:.4f}' for k in ep_stat_keys]
         table_data.append(data)
 
+    wandb.save(ep_state_buffer_json)
     table_columns = ['Suite', 'actor_id', 'n_episode'] + ep_stat_keys
     wandb.log({'table/summary': wandb.Table(data=table_data, columns=table_columns)})
 

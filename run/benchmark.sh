@@ -48,9 +48,20 @@
 #   carla_sh_path=${CARLA_ROOT}/CarlaUE4.sh
 # }
 
+if [[ $# -ne 3 ]] ; then
+    echo 'Need to specify benchmark_type, test_suite and port'
+    exit 1
+fi
+
+# either benchmark_il or benchmark_rl
+BENCHMARK_TYPE=$1
+# either lb_test_nn for test for lb_test_tt for train
+TEST_SUITE=$2
+PORT=$3
+
 
 benchmark () {
-  python -u benchmark.py --config-name benchmark_il
+  python -u benchmark.py --config-name {BENCHMARK_TYPE} test_suites=$TEST_SUITES port=$PORT
 }
 
 
@@ -60,9 +71,9 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda activate roach
 
 # remove checkpoint files
-rm outputs/checkpoint.txt
-rm outputs/wb_run_id.txt
-rm outputs/ep_stat_buffer_*.json
+rm outputs/port_${PORT}_checkpoint.txt
+rm outputs/port_${PORT}_wb_run_id.txt
+rm outputs/port_${PORT}_ep_stat_buffer_*.json
 
 # resume benchmark in case carla is crashed.
 RED=$'\e[0;31m'
@@ -75,7 +86,6 @@ until [ $PYTHON_RETURN == 0 ]; do
   sleep 2
 done
 
-killall -9 -r CarlaUE4-Linux
 echo "Bash script done."
 
 # To shut down the aws instance after the script is finished

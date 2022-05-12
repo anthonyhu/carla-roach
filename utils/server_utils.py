@@ -2,15 +2,19 @@ import subprocess
 import os
 import time
 from omegaconf import OmegaConf
-# os.environ.get('CUDA_VISIBLE_DEVICES')
+from constants import CARLA_FPS
 
 import logging
 log = logging.getLogger(__name__)
 
-GPU_NUMBER = 0
 
-def kill_carla():
-    kill_process = subprocess.Popen('killall -9 -r CarlaUE4-Linux', shell=True)
+def kill_carla(port=2005):
+    # The command below kills ALL carla processes
+    #kill_process = subprocess.Popen('killall -9 -r CarlaUE4-Linux', shell=True)
+
+    # This one only kills processes linked to a certain port
+    kill_process = subprocess.Popen(f'fuser -k {port}/tcp', shell=True)
+    log.info(f"Killed Carla Servers on port {port}!")
     kill_process.wait()
     time.sleep(1)
 
@@ -18,13 +22,14 @@ def kill_carla():
 class CarlaServerManager():
     def __init__(self, carla_sh_str, port=2000, configs=None, t_sleep=5):
         self._carla_sh_str = carla_sh_str
+        self.port = port
         # self._root_save_dir = root_save_dir
         self._t_sleep = t_sleep
         self.env_configs = []
 
         if configs is None:
             cfg = {
-                'gpu': GPU_NUMBER,
+                'gpu': os.environ.get('CUDA_VISIBLE_DEVICES'),
                 'port': port,
             }
             self.env_configs.append(cfg)
@@ -38,18 +43,14 @@ class CarlaServerManager():
                     port += 5
 
     def start(self):
-        kill_carla()
+        kill_carla(self.port)
         for cfg in self.env_configs:
             cmd = f'CUDA_VISIBLE_DEVICES={cfg["gpu"]} bash {self._carla_sh_str} ' \
-                f'-fps=10 -quality-level=Epic -carla-rpc-port={cfg["port"]}'
-            #     f'-fps=10 -carla-server -opengl -carla-rpc-port={cfg["port"]}'
+                f'-fps={CARLA_FPS} -quality-level=Epic -carla-rpc-port={cfg["port"]}'
             log.info(cmd)
-            # log_file = self._root_save_dir / f'server_{cfg["port"]}.log'
-            # server_process = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid, stdout=open(log_file, "w"))
             server_process = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid)
         time.sleep(self._t_sleep)
 
     def stop(self):
-        kill_carla()
+        kill_carla(self.port)
         time.sleep(self._t_sleep)
-        log.info(f"Killed Carla Servers!")

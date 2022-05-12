@@ -11,6 +11,7 @@ from .core.task_actor.scenario_actor.scenario_actor_handler import ScenarioActor
 from .utils.traffic_light import TrafficLightHandler
 from .utils.dynamic_weather import WeatherHandler
 from stable_baselines3.common.utils import set_random_seed
+from constants import CARLA_FPS
 
 logger = logging.getLogger(__name__)
 
@@ -170,7 +171,7 @@ class CarlaMultiAgentEnv(gym.Env):
     def set_sync_mode(self, sync):
         settings = self._world.get_settings()
         settings.synchronous_mode = sync
-        settings.fixed_delta_seconds = 0.1
+        settings.fixed_delta_seconds = 1.0 / CARLA_FPS
         settings.deterministic_ragdolls = True
         self._world.apply_settings(settings)
         self._tm.set_synchronous_mode(sync)

@@ -1,0 +1,1 @@
+CARLA_FPS = 10
