@@ -53,15 +53,14 @@ if [[ $# -ne 3 ]] ; then
     exit 1
 fi
 
-# either benchmark_il or benchmark_rl
-BENCHMARK_TYPE=$1
 # either lb_test_nn for test for lb_test_tt for train
+BENCHMARK_TYPE=$1
 TEST_SUITE=$2
 PORT=$3
 
 
 benchmark () {
-  python -u benchmark.py --config-name {BENCHMARK_TYPE} test_suites=$TEST_SUITES port=$PORT
+  python -u benchmark.py --config-name ${BENCHMARK_TYPE} test_suites=${TEST_SUITE} port=$PORT
 }
 
 
