@@ -1,5 +1,5 @@
 defaults:
-  - test_suites: lb_test_tt
+  - test_suites: testing
 actors:
   hero:
     reward:
